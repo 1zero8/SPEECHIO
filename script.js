@@ -163,7 +163,7 @@ function remove_button_disable_enable(t) {
 }
 
 function add_content_str(t, e) {
-	return `<div class="content-div">\n\n<div class="input-group mb-2">\n\n          <button class="btn btn-danger btn-md remove" onclick="remove(this)">\n\n            <i class="fas fa-minus mr-2"></i>\n\n          </button>\n\n          <textarea rows="3" class="form-control content-box" placeholder="Paragraph..">${e}</textarea>\n\n          <button class="btn btn-secondary btn-sm btn-block mdl" type="button" onclick="change_voice(this)">\n\n            <img class="rounded-circle" width="45" src="${t}.png">\n\n          </button>\n\n        </div>\n\n        <div class="border d-flex justify-content-center rounded p-1 mb-3" style="width: 100%">\n\n          <button class="btn btn-lg w-25 btn-block btn-info add" onclick="add(this)">\n\n            <i class="fas fa-plus mr-2"></i>\n\n          </button>\n\n        </div>\n\n      </div>\n\n      </div>`
+	return `<div class="content-div">\n\n<div class="input-group mb-2">\n\n          <button class="btn btn-danger btn-md remove" onclick="remove(this)">\n\n            <i class="fas fa-minus mr-2"></i>\n\n          </button>\n\n          <textarea rows="3" class="form-control content-box" placeholder="Paragraph.. or Link of audio">${e}</textarea>\n\n          <button class="btn btn-secondary btn-sm btn-block mdl" type="button" onclick="change_voice(this)">\n\n            <img class="rounded-circle" width="45" src="${t}.png">\n\n          </button>\n\n        </div>\n\n        <div class="border d-flex justify-content-center rounded p-1 mb-3" style="width: 100%">\n\n          <button class="btn btn-lg w-25 btn-block btn-info add" onclick="add(this)">\n\n            <i class="fas fa-plus mr-2"></i>\n\n          </button>\n\n        </div>\n\n      </div>\n\n      </div>`
 }
 
 function default_voice() {
@@ -195,7 +195,9 @@ function send() {
 			id: "content" + s
 		}), s++) : t.remove()
 	})), $(".content-box").each((function() {
-		a.push($(this).val())
+		let _content = $(this).val();
+		if(_content.startsWith('https://') || _content.startsWith('http://')) _content = _content.split(' ')[0];
+		a.push(_content)
 	})), $(".mdl").each((function() {
 		var t = $(this).html();
 		t = (t = t.split('src="')[1]).split('.png"')[0], n.push(t)
